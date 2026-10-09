@@ -1,6 +1,6 @@
 # GitHub 公开备份
 
-目标仓库：`day8reak/ai-model-learn`，公开。SSH 已通过账号验证；首次上传需要先创建远端仓库。是否已启用同步，以本机 `git config --local --get learning.syncGitHub` 和实际推送结果为准。
+目标仓库：[day8reak/ai-model-learn](https://github.com/day8reak/ai-model-learn)，公开。2026-10-09 已通过本地 SSH 完成首次上传，发布分支为 `main`，当前主机已启用同步。后续是否启用，以本机 `git config --local --get learning.syncGitHub` 和实际推送结果为准。
 
 ## 公开范围
 
