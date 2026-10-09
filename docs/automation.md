@@ -1,0 +1,68 @@
+# 每日自动学习
+
+## 约定
+
+每天北京时间 09:00 生成一份中文知识讲义和联网动态，保存到 `daily/YYYY/MM/YYYY-MM-DD.md`。Windows 任务计划程序经 PowerShell 启动 WSL 中的 Python 脚本，脚本调用已登录的 Codex CLI；无需一直打开聊天窗口。
+
+任务名：`AI-Model-Learn-Daily`。2026-10-09 已注册并确认启用，首次定时触发为 **2026-10-10 09:00 +08:00**，之后每天运行。现场状态记录在 `.automation/schedule.json`；后续是否仍启用以及运行结果，以 Windows 任务状态为准。
+
+## 运行条件
+
+- Windows 已开机、用户已登录（锁屏可以），WSL 发行版与工程路径仍可用。
+- Codex 保持登录，账户有可用额度，网络能够访问模型服务和检索服务。
+- Windows 时区为 `China Standard Time`，内容日期固定使用 `Asia/Shanghai`。
+- 关机或睡眠期间不能保证准点执行；已启用错过后补运行。只补当前日期的一份内容，不补造过去几天的新闻。
+
+这是本地文件生成任务，未配置聊天、邮件或手机通知。Codex 在只读沙箱中研究和生成正文，由 Python 脚本检查标题、日期、章节和来源链接后保存。自动任务不修改学习进度，不归档为已掌握，也不修改 `AGENTS.md`。
+
+## 手动运行与查看
+
+在工程根目录执行：
+
+```bash
+python3 scripts/daily_learning.py --check
+python3 scripts/daily_learning.py
+```
+
+同日文件已存在时保留人工修订；若已[启用 GitHub 同步](github-sync.md)，仍重试上传。新生成的日报也先落盘，再上传；上传失败不会删除本地文件。运行记录在 `.automation/runs/`，失败返回非零退出码；调度器最多间隔 15 分钟重试两次。检查报告格式不能代替事实核查，应阅读来源与首批输出。
+
+Windows 启动日志位于 `%LOCALAPPDATA%\ai-model-learn\launcher.log`，用于排查 WSL 启动失败或确认已有日报被保留。
+
+在 Windows PowerShell 中查看：
+
+```powershell
+Get-ScheduledTask -TaskName AI-Model-Learn-Daily
+Get-ScheduledTaskInfo -TaskName AI-Model-Learn-Daily
+```
+
+## 停用与恢复
+
+```powershell
+Disable-ScheduledTask -TaskName AI-Model-Learn-Daily
+Enable-ScheduledTask -TaskName AI-Model-Learn-Daily
+```
+
+停用只阻止后续触发。如需同时停止正在运行的任务，再执行 `Stop-ScheduledTask -TaskName AI-Model-Learn-Daily`。
+
+重新安装使用 `scripts/install_daily_task.ps1`；脚本遇到同名任务会停止，避免覆盖其他设置。更换时区、发行版或工程路径后需要同步更新任务。
+
+安装时显式传入自己的 WSL 发行版、Linux 用户和工程绝对路径，例如：
+
+```powershell
+.\scripts\install_daily_task.ps1 -Distro "Ubuntu" -LinuxUser "your-user" -ProjectPath "/home/your-user/ai-model-learn"
+```
+
+## 初次验证（2026-10-09）
+
+- 通过 Windows → WSL 路径实际调用 Codex，完成联网检索并生成首份日报。
+- 4 项自动测试通过，覆盖成功保存、保留已有日报、模型调用失败和错误日期。
+- Windows 任务实际触发成功，返回码为 `0`；此次检查命中同日报告保护，没有重复调用模型。
+- 首份日报的新闻原文和日期已复核；`AGENTS.md` 内容未修改。
+
+同日加入 GitHub 同步后，离线测试扩展为 12 项并全部通过，另覆盖上传失败后保留与重试、公开文件范围、重复执行、已有暂存内容保护、符号链接拒绝和远端分叉保护。测试使用临时本地 Git 仓库，不代表已经完成 GitHub 首次上传。
+
+## 参考
+
+- [OpenAI：Scheduled tasks](https://learn.chatgpt.com/docs/automations)：也可使用产品内的定时任务；本工程采用 Windows 本地调度。
+- [Microsoft：任务运行身份](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtaskprincipal?view=windowsserver2025-ps)。
+- [Microsoft：任务设置](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset?view=windowsserver2025-ps)。

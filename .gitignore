@@ -1,0 +1,17 @@
+.automation/
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+.ssh/
+*.pem
+*.key
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.om
+weights/
+datasets/
