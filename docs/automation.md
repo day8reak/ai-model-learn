@@ -69,8 +69,15 @@ Enable-ScheduledTask -TaskName AI-Model-Learn-Daily
 
 2026-10-09 17:17 +08:00 再次实际触发 Windows 任务：保留当日日报，通过 SSH 提交并上传文档到公开仓库 `day8reak/ai-model-learn`，任务返回码为 `0`。此轮验证没有重复调用模型；下次定时运行仍为 2026-10-10 09:00 +08:00。
 
+## 2026-10-10 阅读入口验证
+
+09:00 的首次定时运行成功，日报于 09:01:57 保存并上传。原启动动作没有隐藏窗口，也没有打开日报，因此用户只能看到终端。
+
+随后将启动动作设置为隐藏窗口，在确认目标仓库上传成功后打开当天的 GitHub 日报。实际触发验证返回 `0`，启动日志记录了正确的日报 URL；当日文件保持不变，没有重新调用模型。再次触发时正常同步并跳过重复打开。更新保留了原触发时间、运行身份和重试设置；下次运行是 2026-10-11 09:00 +08:00。
+
 ## 参考
 
 - [OpenAI：Scheduled tasks](https://learn.chatgpt.com/docs/automations)：也可使用产品内的定时任务；本工程采用 Windows 本地调度。
+- [OpenAI：Codex 非交互执行](https://developers.openai.com/blog/eval-skills)：`codex exec` 的进度和结果可以重定向到日志与文件；阅读入口由本工程的启动脚本提供。
 - [Microsoft：任务运行身份](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtaskprincipal?view=windowsserver2025-ps)。
 - [Microsoft：任务设置](https://learn.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset?view=windowsserver2025-ps)。
