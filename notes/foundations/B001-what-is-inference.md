@@ -33,4 +33,4 @@
 
 - [首次讲义与自测](../../daily/2026/10/2026-10-09.md)。
 - [PyTorch 官方：Optimizing Model Parameters](https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html)，核对于 2026-10-09。
-- 下一课：T001 — Transformer 全局结构，计划于 2026-10-10 开始；[已备草稿](../../daily/2026/10/2026-10-09-T001-transformer-overview.md)不计为已学习。B001 归档后，2026-10-09 的课程结束。
+- 下一课：[T001 — Transformer 全局结构](../../daily/2026/10/2026-10-10.md)，2026-10-10 的正式讲义。B001 归档后，2026-10-09 的课程结束。
