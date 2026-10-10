@@ -23,7 +23,7 @@
 
 | 编号 | 知识点 | 状态 | 归档日期 | 笔记 | 用户反馈 / 待解决问题 |
 | --- | --- | --- | --- | --- | --- |
-| T001 | Transformer 全局结构 | 学习中 | — | [正式讲义](../daily/2026/10/2026-10-10.md)；尚未归档 | 2026-10-10 三题自测通过。第 1 题回答正确；第 2 题经补讲后正确回答 `[1,3,8]` 和 `[1,3,10]`；第 3 题经补讲后完整复述文字 → Tokenizer → token ID → Embedding → 多层 Decoder Block → 输出归一化与 LM Head → 选择下一个 token，并已正确说明 Self-Attention 的作用。术语澄清：逐层更新由 Decoder Blocks 完成。待用户确认吃透，暂不归档或进入下一课 |
+| T001 | Transformer 全局结构 | 学习中 | — | [正式讲义](../daily/2026/10/2026-10-10.md)；尚未归档 | 2026-10-10 三题自测通过。第 1 题回答正确；第 2 题经补讲后正确回答 `[1,3,8]` 和 `[1,3,10]`；第 3 题经补讲后完整复述文字 → Tokenizer → token ID → Embedding → 多层 Decoder Block → 输出归一化与 LM Head → 选择下一个 token，并已正确说明 Self-Attention 的作用。术语澄清：逐层更新由 Decoder Blocks 完成。随后追问输出归一化与 LM Head，已补充 RMSNorm 手算、词表投影及 softmax 的区别，待用户反馈理解情况并确认吃透，暂不归档或进入下一课 |
 | B001 | 什么是大模型推理 | 已掌握 | 2026-10-09 | [正式笔记](../notes/foundations/B001-what-is-inference.md) | 三道自测均正确；用户明确确认吃透；仅记录理论掌握 |
 
 ## 实践进度
