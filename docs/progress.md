@@ -9,7 +9,7 @@
 - 当前状态：学习中
 - 计划开始：2026-10-10 09:00，Asia/Shanghai
 - 正式归档数量：1（已掌握 1，已跳过 0）
-- 下一知识点：T002 — Token、词表与 Embedding
+- 下一知识点：T002 — Token、Tokenizer、词表与 Embedding
 
 ## 状态约定
 
