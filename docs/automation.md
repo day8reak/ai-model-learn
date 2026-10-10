@@ -15,7 +15,9 @@
 - Windows 时区为 `China Standard Time`，内容日期固定使用 `Asia/Shanghai`。
 - 关机或睡眠期间不能保证准点执行；已启用错过后补运行。只补当前日期的一份内容，不补造过去几天的新闻。
 
-这是本地文件生成任务，未配置聊天、邮件或手机通知。Codex 在只读沙箱中研究和生成正文，由 Python 脚本检查标题、日期、章节和来源链接后保存。自动任务不修改学习进度，不归档为已掌握，也不修改 `AGENTS.md`。
+任务在隐藏窗口中运行，确认 GitHub 上传成功后，通过 Windows 默认浏览器打开当天的日报。同一天成功打开过的页面不重复弹出；停用上传时不会打开尚未发布的 GitHub 页面。浏览器启动记录保存在 `%LOCALAPPDATA%\ai-model-learn\last-opened-report.txt`。
+
+未配置在此聊天、邮件或手机中推送通知。Codex 在只读沙箱中研究和生成正文，由 Python 脚本检查标题、日期、章节和来源链接后保存。自动任务不修改学习进度，不归档为已掌握，也不修改 `AGENTS.md`。
 
 ## 手动运行与查看
 
@@ -46,13 +48,15 @@ Enable-ScheduledTask -TaskName AI-Model-Learn-Daily
 
 停用只阻止后续触发。如需同时停止正在运行的任务，再执行 `Stop-ScheduledTask -TaskName AI-Model-Learn-Daily`。
 
-重新安装使用 `scripts/install_daily_task.ps1`；脚本遇到同名任务会停止，避免覆盖其他设置。更换时区、发行版或工程路径后需要同步更新任务。
+安装使用 `scripts/install_daily_task.ps1`；遇到同名任务默认停止。传入 `-UpdateExisting` 可更新启动动作，保留已有触发时间、运行身份和重试设置，并将原任务 XML 备份到 `%LOCALAPPDATA%\ai-model-learn\task-backups\`。更换时区、发行版或工程路径后需要同步检查任务。
 
 安装时显式传入自己的 WSL 发行版、Linux 用户和工程绝对路径，例如：
 
 ```powershell
-.\scripts\install_daily_task.ps1 -Distro "Ubuntu" -LinuxUser "your-user" -ProjectPath "/home/your-user/ai-model-learn"
+.\scripts\install_daily_task.ps1 -Distro "Ubuntu" -LinuxUser "your-user" -ProjectPath "/home/your-user/ai-model-learn" -GitHubRepository "your-name/ai-model-learn"
 ```
+
+`-GitHubRepository` 指定成功后要打开的仓库，必须与 SSH 上传目标一致；省略此项只生成与同步，不打开浏览器。更新已有任务时在命令末尾加上 `-UpdateExisting`。
 
 ## 初次验证（2026-10-09）
 
