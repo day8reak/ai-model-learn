@@ -14,7 +14,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = [
     "README.md", ":(glob)docs/**/*.md", ":(glob)daily/**/*.md",
-    ":(glob)notes/**/*.md",
+    ":(glob)notes/**/*.md", ":(glob)lessons/**/*.md", ":(glob)study-log/**/*.md",
 ]
 
 

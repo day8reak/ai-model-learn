@@ -58,6 +58,8 @@ class GitHubSyncTests(unittest.TestCase):
 
     def test_commits_only_public_documents_and_is_idempotent(self):
         self.document("daily/2026/10/2026-10-09.md")
+        self.document("lessons/T002-1.md")
+        self.document("study-log/2026/10/2026-10-12.md")
         self.document("notes/foundations/T001-transformer.md")
         self.document("docs/progress.md")
         self.document("scripts/local.py", "private implementation")
@@ -68,6 +70,8 @@ class GitHubSyncTests(unittest.TestCase):
         self.assertEqual(head, self.git(self.remote, "rev-parse", "main"))
         names = self.git(self.remote, "ls-tree", "-r", "--name-only", "main").splitlines()
         self.assertIn("daily/2026/10/2026-10-09.md", names)
+        self.assertIn("lessons/T002-1.md", names)
+        self.assertIn("study-log/2026/10/2026-10-12.md", names)
         self.assertIn("notes/foundations/T001-transformer.md", names)
         self.assertIn("docs/progress.md", names)
         self.assertNotIn("scripts/local.py", names)
