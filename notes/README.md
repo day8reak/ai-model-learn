@@ -23,6 +23,7 @@
 | --- | --- | --- | --- | --- |
 | B001 | [什么是大模型推理](foundations/B001-what-is-inference.md) | 已掌握（理论） | 2026-10-09 | — |
 | T001 | [Transformer 全局结构](architecture/T001-transformer-overview.md) | 已掌握（理论） | 2026-10-12 | — |
+| T002-1 | [Token、token ID 与词表](foundations/T002-1-token-id-vocabulary.md) | 已掌握（理论） | 2026-10-13 | — |
 
 新增条目使用：`编号｜标题与链接｜已掌握/已跳过｜归档日期｜跳过原因（如有）`。
 

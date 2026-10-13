@@ -30,3 +30,14 @@
 - 用独立 Python 小例子复算 token 查表、交换词表后的解释，以及 `[1,3,4] → [1,3,6] → [1,6] → 1 个 ID` 的形状与选择，结果一致；RMSNorm 手算沿用正文明确说明的忽略 ε 的简化。
 - 六张图均使用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中成功渲染，并逐张检查中文标签、箭头和布局。输出头图显式标明权重转置，生成图显式保留追加与停止判断。
 - `git diff --check` 及本地文档链接检查通过。生成预览仅用于本地核查，讲义保留可维护的 Mermaid 源码，不添加阅读依赖。
+
+## 2026-10-13：T002-2 流程与 BPE
+
+| 图号 | 核查依据与重点 | 简化边界 |
+| --- | --- | --- |
+| [T002-2](../lessons/T002-2.md) 图 1 | [Tokenizers 官方流程](https://huggingface.co/docs/tokenizers/pipeline)：规范化 → 预切分 → 分词模型及 ID 映射 → 后处理；之后才进入神经网络的 Embedding | 配置决定各步骤是否执行；省略其他输出字段、特殊 token 细节，不把文本规范化混同于 RMSNorm |
+| T002-2 图 2 | [BPE 官方课程](https://huggingface.co/learn/llm-course/en/chapter6/5)的固定规则应用，加上本课原创词表与计数 | 字符级、单片段、无特殊 token、无随机分词；规则 2 无匹配后应用规则 3，不重新按新输入频次学习 |
+
+已用 Python 复算三轮加权计数，最高频对无并列；新课代码输出 `['ab', 'ac']` 和 `[3, 5]`。另用逐次选择最高优先级相邻对的独立实现核对：在字母表 `{a,b,c}`、长度 1–6 的全部 1092 个非空字符串上，结果与讲义代码一致；也核对了自测例。验证范围只覆盖本课简化规则，不作为真实 tokenizer 的兼容性或性能验证。
+
+两张图均用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染，并逐张检查文字、箭头和规则编号。规范化与预切分另对照[官方说明](https://huggingface.co/learn/llm-course/en/chapter6/4)，算法依据复核 [Sennrich 等，2016，§3.2](https://aclanthology.org/P16-1162.pdf)。

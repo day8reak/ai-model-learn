@@ -1,6 +1,6 @@
 # 博客、论文与代码阅读清单
 
-筛选日期：2026-10-09；2026-10-12 补充 Tokenizer 官方课程。每课推荐 1 篇主阅读、最多 1 篇进阶材料。借鉴作者的图解、实验与解释顺序，用自己的语言讲解并注明来源。
+筛选日期：2026-10-09；2026-10-12 补充 Tokenizer 官方课程，2026-10-13 补充 BPE 与处理流程。每课推荐 1 篇主阅读、最多 1 篇进阶材料。借鉴作者的图解、实验与解释顺序，用自己的语言讲解并注明来源。
 
 ## 核心阅读路径
 
@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | Transformer 入门 | [Jay Alammar：The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) | 用图理解模块和数据流；先学原始 Encoder–Decoder，再对照 Decoder-only |
 | Tokenizer 入门 | [Hugging Face：Tokenizers](https://huggingface.co/learn/llm-course/en/chapter2/4) | 区分 token、词表和 ID，跟踪编码与解码；先理解概念，再逐步学习分词算法。2026-10-12 已打开核对 |
+| BPE 与处理流程 | [Hugging Face：BPE](https://huggingface.co/learn/llm-course/en/chapter6/5) | 区分训练规则与使用规则；结合[官方流程](https://huggingface.co/docs/tokenizers/pipeline)定位 BPE，进阶读 [2016 年论文 §3.2](https://aclanthology.org/P16-1162.pdf)。2026-10-13 已打开核对 |
 | 手写参考实现 | [Sebastian Raschka：LLMs from Scratch](https://sebastianraschka.com/llms-from-scratch/) | 使用作者的代码、分步实现和练习，优先 attention、模型和生成部分 |
 | KV Cache | [Hugging Face：How caching works](https://huggingface.co/docs/transformers/main/en/cache_explanation) | 对照缓存与重计算、状态形状；运行时固定库版本 |
 | 推理调度 | [Hugging Face：Continuous batching from first principles](https://huggingface.co/blog/continuous_batching) | 从单请求过渡到多请求，分析排队、缓存和吞吐 |
