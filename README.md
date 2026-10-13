@@ -1,6 +1,6 @@
 # 大模型推理学习
 
-从 Transformer、Prefill、Decode、KV Cache 开始，沿千问、DeepSeek 等开源模型从早期到最新公开版本学习结构与优化，建立可复习、检索和实践的中文知识库。
+从 Transformer、Prefill、Decode、KV Cache 开始，沿 Qwen（千问）、DeepSeek、Kimi、Llama、Mistral/Mixtral、GLM 六个模型系列，从早期到最新公开版本学习结构与优化，建立可复习、检索和实践的中文知识库。
 
 目标是逐步具备独立开发 NPU 算子、打通整模型推理和完成端到端优化的能力。先学通用原理，之后再选平台；通过参考实现、设备验证和性能实验验收能力，不把理解结构等同于已经能够交付所有模型。
 
@@ -37,7 +37,7 @@
 2. 用户确认吃透后，将定义、原理、例子、理解中的疑问与纠正、适用边界、自测和来源整理成正式笔记，标记“已掌握”。公开笔记只保留技术问题，不包含私人聊天或敏感信息。
 3. 用户要求跳过时，直接生成一份简明笔记，保留定义、核心结论、适用场景、来源及跳过原因，标记“已跳过”；不要求再次确认。
 4. 归档到 `notes/<分类>/<编号>-<英文短名>.md`，更新[知识索引](notes/README.md)、学习进度及当天学习日志。下一知识点标为“待学习”，默认次日开始；仅用户明确要求当天继续或跳过换课时提前推进。
-5. “已跳过”可以随时重新学习。新技术先进入候选清单，补齐前置知识后再安排，避免打乱基础学习顺序。
+5. “已跳过”可以随时重新学习。[近期课程目录](lessons/README.md#近期课程计划)滚动保留至少 10 个待学主题；归档或调整方向时核对，可按反馈拆分、合并和改序，不提前写完全部讲义或绑定日期。新技术补齐前置知识后再安排；更新模型大纲时联网核对官方最新版本，同步路线与版本表，区分已开放权重和仅公布的版本。
 6. 理论掌握、CPU 参考实现、NPU 验证和性能优化分别记录；跳过理论不自动视为完成实践。博客辅助理解，面经用于补充自测，技术结论核对原始资料。
 7. 交互自测以对应课号讲义的“自测”章节为准，按原文和原题号出题、批改。拆解或追加的练习明确标为“补充练习”，不替代原题；需要修订正式题目时，先统一讲义并说明改动，避免聊天与 GitHub 出现不同题面。
 
@@ -47,9 +47,10 @@
 | --- | --- |
 | [docs/roadmap.md](docs/roadmap.md) | 从基础到进阶的学习顺序 |
 | [docs/progress.md](docs/progress.md) | 当前知识点、掌握与跳过记录 |
-| [lessons/README.md](lessons/README.md) | 按课程编号排列的讲义目录 |
+| [lessons/README.md](lessons/README.md) | 已有讲义与接下来至少 10 课的计划目录 |
 | [study-log/README.md](study-log/README.md) | 按实际日期排列的学习情况 |
-| [docs/model-evolution.md](docs/model-evolution.md) | 千问与 DeepSeek 历代结构比较 |
+| [docs/model-evolution.md](docs/model-evolution.md) | 六个模型系列的历代结构、最新版本与官方来源 |
+| [docs/inference-techniques.md](docs/inference-techniques.md) | 常用及新型推理技术的完整学习范围、实践目标与来源 |
 | [docs/practice-milestones.md](docs/practice-milestones.md) | 从参考实现到 NPU 交付的验收标准 |
 | [docs/reading-list.md](docs/reading-list.md) | 已筛选的博客、论文和代码 |
 | [docs/interview-practice.md](docs/interview-practice.md) | 面经来源与阶段自测 |

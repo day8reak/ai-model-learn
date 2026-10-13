@@ -1,6 +1,6 @@
 # 从 Transformer 到 NPU 端到端推理
 
-更新时间：2026-10-12。先学通用原理，之后再选 NPU 平台。默认一天一课，吃透并归档后下一课留到次日；仅用户主动要求继续或跳过换课时提前推进。编号表示学习顺序，不对应固定日期。跳过的知识仍归档。
+更新时间：2026-10-13。先学通用原理，之后再选 NPU 平台。默认一天一课，吃透并归档后下一课留到次日；仅用户主动要求继续或跳过换课时提前推进。编号表示学习顺序，不对应固定日期。跳过的知识仍归档。
 
 ## 主线与学习方法
 
@@ -14,7 +14,9 @@ T001 先建立完整流程，后续逐模块深入。每个模块按“直观作
 
 讲义统一按课号保存到 `lessons/<课号>.md`；学习日期、实际回答、状态变化与暂停位置写入 `study-log/YYYY/MM/YYYY-MM-DD.md`。同一课可以跨天，同一天也可以按明确要求学多课；日期不会自动推进课号。
 
-模型演进与专题交叉学习：遇到新机制先补专题，再返回模型。例如学习 Qwen3-Next 前补线性注意力，学习 DeepSeek-V2 前补 MoE 与 MLA。训练知识围绕结构、权重和推理行为按需补充。
+模型演进与专题交叉学习：遇到新机制先补专题，再返回模型。例如学习 Qwen3-Next 前补线性注意力，学习 DeepSeek-V2 前补 MoE 与 MLA，学习 Kimi Linear 前补门控递归状态。训练知识围绕结构、权重和推理行为按需补充。
+
+[近期课程计划](../lessons/README.md#近期课程计划)先列接下来 12 个主题，并滚动保留至少 10 个待学主题。复杂内容可拆分为子课，按反馈更新目录，不将长远路线固定为日历。首次介绍模型时先解释开发团队、用途与选择理由，再讲结构差异。
 
 ## 第一阶段：Transformer 与推理基础
 
@@ -47,26 +49,40 @@ T002 分课顺序：T002-1 Token、token ID 与词表 → T002-2 Tokenizer 的�
 
 | 主线 | 顺序 | 比较重点 |
 | --- | --- | --- |
-| 千问 | Qwen / Qwen1.5 → Qwen2 → Qwen2.5 → Qwen3 → Qwen3-Next → 后续公开版本 | Dense/MoE、注意力、位置与归一化、混合结构、缓存与算子变化 |
-| DeepSeek | DeepSeek LLM → DeepSeekMoE / V2 → V3 → R1 分支辨析 → V3.2 → V4 系列及后续版本 | MLA、专家路由、MTP、稀疏/压缩注意力和状态变化 |
-| 结构补充 | Llama、Mistral/Mixtral、Gemma、GLM、Kimi、SSM/混合模型，再扩展视觉与音频 | 覆盖不同结构族，不重复精读同构版本 |
+| 千问 | Qwen / Qwen1.5 → Qwen2 → Qwen2.5 → Qwen3 → Qwen3-Next → Qwen3.5 / 3.6 → Qwen3.8；另学 3.8-Flash-Next | Dense/MoE、混合注意力、稀疏索引、门控残差与 N-gram embedding |
+| DeepSeek | DeepSeek LLM → DeepSeekMoE / V2 → V3 → R1 分支辨析 → V3.2 → V4 → V4.1-Flash | MLA、MTP、压缩/稀疏注意力、因果 Encoder–Decoder、跨层缓存与投机解码 |
+| Kimi | K2 → K2 Thinking → K2.5 / K2.6 / K2.7-Code → K3；穿插 Kimi Linear 分支 | MoE、MLA、量化、KDA 递归状态、多模态与残差结构 |
+| Llama | LLaMA → Llama 2 → Llama 3 / 3.1 / 3.2 / 3.3 → Llama 4 Scout / Maverick | 从基础 Decoder 到不同头配置、MoE 和视觉融合 |
+| Mistral/Mixtral | Mistral 7B → Mixtral 8x7B → Large 3 / Ministral 3 → Small 4 / Medium 3.5；Large 4 待开放权重 | 滑动窗口、专家选择、不同规模与部署路径；各分支分别比较 |
+| GLM | ChatGLM 系列 → GLM-4 → GLM-4.5 / 4.6 / 4.7 → GLM-5 / 5.1 / 5.2 → GLM-5.3 与 5.3-Flash | 模型配套、稀疏索引复用、缓存、MTP 与混合注意力 |
+| 模型家族补充候选 | Gemma 等其他模型家族 | 整个家族是否精读按差异选择；Mamba/SSM 机制与多模态推理已纳入后续专题 |
 
-每个版本产出“相对前代的差异表”和最小实验。具体版本、来源和近期候选见[模型演进表](model-evolution.md)。模型名称、规模与后缀不能替代配置和代码检查。
+以上最新范围已于 2026-10-13 核对，官方来源与开放状态见[模型演进表](model-evolution.md)。Mistral Large 4 的官方公告承诺本月底发布权重，当前仅作跟进项。箭头表示学习顺序，不表示所有分支直接继承；系列先后可按前置知识调整，建议用较早的 Llama 建立完整推理基线，再穿插其他系列。
+
+每个代表版本产出“相对前代的差异表”和最小实验；同构更新侧重差异，避免重复精读。新发布进入大纲前检查官方公告、模型卡及权重，记录核查日期，不能只填“后续版本”。模型名称、规模与后缀不能替代配置和代码检查。
 
 ## 第三阶段：随模型穿插的优化专题
 
 | 编号 | 专题 | 实现关注点 |
 | --- | --- | --- |
 | O01 | MHA → MQA → GQA → MLA | 头映射、投影方式与实际缓存布局 |
-| O02 | 全注意力 → 滑动窗口 → 稀疏注意力 | 掩码、索引、位置与缓存保留 |
-| O03 | Linear Attention → DeltaNet / Gated DeltaNet → 混合注意力与 SSM 对照 | 递归状态、分块并行、数值稳定与恢复 |
-| O04 | Dense FFN → MoE | 路由、TopK、分发/合并、Grouped GEMM 与负载 |
-| O05 | 普通 Decode → 投机/推测解码 → MTP 及后续方法 | Draft/Verify、接受判定和拒绝后的状态回滚 |
-| O06 | 朴素 Attention → FlashAttention → PagedAttention | 在线 softmax、分块、缓存管理 |
-| O07 | 数值精度与权重、激活、KV 量化 | 缩放、校准、反量化开销与精度 |
-| O08 | 连续批处理、前缀缓存、Chunked Prefill、PD 分离 | 调度、状态隔离、内存回收与尾延迟 |
+| O02 | SWA、DSA、CSA、HCA、CSA2、QSA、IndexShare；RoPE Scaling / YaRN | 窗口、稀疏索引、压缩、跨层复用和位置 |
+| O03 | Linear Attention、DeltaNet、Gated DeltaNet、KDA、Mamba / Mamba-2 | 递归/卷积状态、分块并行、数值稳定与恢复 |
+| O04 | Sparse MoE、Shared Experts、Grouped GEMM、LatentMoE | 路由、TopK、分发/合并、负载与融合 |
+| O05 | Speculative Decoding、MTP、EAGLE 1/2/3、Medusa、LayerSkip、DFlash、DFlash 2、DSpark | Draft/Verify、拒绝采样、动态长度、树验证和状态回滚 |
+| O06 | FlashAttention 1/2/3/4、PagedAttention | 在线 softmax、分块、计算搬运调度与分页管理 |
+| O07 | PTQ/QAT、GPTQ、AWQ、SmoothQuant、FP8/FP4/MXFP4/NVFP4、KIVI、TurboQuant/PolarQuant/QJL、SparseGPT、蒸馏 | 量化、剪枝、校准、格式、反量化融合与质量 |
+| O08 | Continuous Batching、Prefix/Radix Cache、Chunked Prefill、PD Disaggregation、Multi-LoRA | 请求调度、缓存/适配器匹配、状态隔离和尾延迟 |
+| O09 | 分层缓存、Offload、预取、重计算、H2O、SnapKV、SWA Bounded Replay | 设备/主存/磁盘搬运、恢复条件与近似边界 |
+| O10 | TP、PP、DP、SP/CP、EP、All-to-All、通信计算重叠 | 分片、集合通信、设备拓扑和推理状态 |
+| O11 | GEMM/GEMV、Split-K、Kernel Fusion、Tiling、Layout、双缓冲、图重放、内存池 | 从热点算子到编译与运行时开销，覆盖动态形状 |
+| O12 | mHC、Single-Pass mHC、Gated Residual、Attention Residuals、Engram、N-gram Embedding、CED | 残差流、条件查表、跨层缓存和新的执行路径 |
+| O13 | 视觉/音频编码器、连接层、多模态 token 与流式处理 | 预处理、动态输入、位置、复用和状态 |
+| O14 | 精度对齐、Profiler/Roofline、TTFT/TPOT/ITL、尾延迟、消融与回归 | 固定负载后衡量质量、内存、延迟与吞吐 |
 
 区分改变模型计算语义、改变计算实现、改变缓存组织的技术；例如 FlashAttention 不等于线性注意力。核对入口：[FlashAttention](https://arxiv.org/abs/2205.14135)、[GQA](https://arxiv.org/abs/2305.13245)、[PagedAttention](https://arxiv.org/abs/2309.06180)。
+
+以上均纳入学习范围，不仅学习列出的几个新名词。各项解释、前置关系、实践目标与官方来源集中维护在[推理技术目录](inference-techniques.md)。专题随模型穿插，可拆成多节小课；公开实验收益与本工程 NPU 实测分开记录。
 
 ## 第四阶段：NPU 编程的通用底座
 

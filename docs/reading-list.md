@@ -1,6 +1,6 @@
 # 博客、论文与代码阅读清单
 
-筛选日期：2026-10-09；2026-10-12 补充 Tokenizer 官方课程，2026-10-13 补充 BPE、处理流程、特殊 token、文本解码与 Embedding。每课推荐 1 篇主阅读、最多 1 篇进阶材料。借鉴作者的图解、实验与解释顺序，用自己的语言讲解并注明来源。
+筛选日期：2026-10-09；2026-10-12 补充 Tokenizer 官方课程，2026-10-13 补充 BPE、处理流程、特殊 token、文本解码、Embedding 及六个模型系列的官方入口。每课推荐 1 篇主阅读、最多 1 篇进阶材料。借鉴作者的图解、实验与解释顺序，用自己的语言讲解并注明来源。
 
 ## 核心阅读路径
 
@@ -15,7 +15,7 @@
 | KV Cache | [Hugging Face：How caching works](https://huggingface.co/docs/transformers/main/en/cache_explanation) | 对照缓存与重计算、状态形状；运行时固定库版本 |
 | 推理调度 | [Hugging Face：Continuous batching from first principles](https://huggingface.co/blog/continuous_batching) | 从单请求过渡到多请求，分析排队、缓存和吞吐 |
 | 最小引擎 | [LMSYS：Mini-SGLang](https://www.lmsys.org/blog/2025-12-17-minisgl/) | 基础建立后追踪引擎调度与内存管理，硬件实现另外适配 |
-| 新模型结构 | [千问官方](https://github.com/QwenLM)、[DeepSeek 官方](https://huggingface.co/deepseek-ai) | 通过[版本表](model-evolution.md)选定具体模型，比较配置、forward 和状态 |
+| 新模型结构 | [六个模型系列的官方入口与版本表](model-evolution.md) | Qwen、DeepSeek、Kimi、Llama、Mistral/Mixtral、GLM 从旧到新；2026-10-13 已核对当前版本，比较配置、forward 和状态，区分已开放权重与发布预告 |
 | 硬件优化案例 | [昇腾官方：流水优化](https://www.hiascend.com/zh/developer/techArticles/20240819-1) | 借鉴搬运/计算重叠和收益分析，具体 API 留到选定平台后 |
 
 以上核心页面已打开核对。经典资料解释基础，API、支持范围和性能数字按实际版本重新检查。
@@ -26,9 +26,13 @@
 
 ## 机制核对入口
 
+完整专题与逐项原始资料见[推理技术目录](inference-techniques.md)，包括 DFlash / DFlash 2 / DSpark、CSA / HCA / SWA，以及量化、缓存调度、并行通信和编译优化；按前置知识选择当课材料。
+
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)：原始 Transformer。
 - [GQA](https://arxiv.org/abs/2305.13245)：Q 头与 KV 头组织。
 - [Mistral 7B](https://arxiv.org/abs/2310.06825)：滑动窗口案例。
+- [Mixtral](https://arxiv.org/abs/2401.04088)：专家路由与输出合并。
+- [Kimi Linear](https://github.com/MoonshotAI/Kimi-Linear)：KDA、递归状态和混合注意力，相关前置知识学完后再阅读。
 - [FlashAttention](https://arxiv.org/abs/2205.14135)：注意力计算的分块与数据搬运。
 - [PagedAttention](https://arxiv.org/abs/2309.06180)：推理缓存管理。
 - [Speculative Decoding](https://arxiv.org/abs/2211.17192)：草稿与验证机制。
