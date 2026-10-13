@@ -52,3 +52,13 @@
 已执行讲义中的 Python 代码，得到 `<bos>ababac<eos>` 与 `ababac`。独立按合并优先级复算正文及第 1 题的 BPE 编码，核对加入边界后的 ID、S、V，以及填充后的张量位置数和输入掩码；解码跳过 PAD 后文字一致。验证范围为本课教学配置，不作为真实模型运行证据。
 
 两张图均使用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染，并逐张查看中文标签、数值、箭头与布局。正文另对照[聊天模板](https://huggingface.co/docs/transformers/main/en/chat_templating)和 [v4.45.2 生成配置](https://huggingface.co/docs/transformers/v4.45.2/en/main_classes/text_generation)，避免把文本解码与模型 Decode、停止判断混为一谈。
+
+## 2026-10-13：T002-4 Embedding 查表与形状
+
+| 图号 | 核查依据与重点 | 简化边界 |
+| --- | --- | --- |
+| [T002-4](../lessons/T002-4.md) 图 1 | [PyTorch 2.14 Embedding](https://docs.pytorch.org/docs/2.14/generated/torch.nn.Embedding.html) 的索引、权重和输出形状；[v4.45.2 Qwen2 源码](https://github.com/huggingface/transformers/blob/v4.45.2/src/transformers/models/qwen2/modeling_qwen2.py) 的 `embed_tokens` 构造与调用 | 手工 E 为 `[9,3]`，输入 `[1,4]`，输出 `[1,4,3]`；从 0 编号，无额外词表行、位置处理、量化或会改写权重的选项 |
+
+已执行讲义的 Python 列表代码，逐行核对 Markdown 权重表与代码数据，输出与手算一致。另以 one-hot 乘权重表的独立计算核对全部九个 ID、顺序与重复取行；复算正文和自测的输入、权重、输出形状，以及每条序列补一个 PAD 后的变化。只验证本课查表，不验证后续模型层或训练；未安装或运行 PyTorch，也未加载真实模型。
+
+图已用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染并查看，ID 与权重两条输入箭头含义清楚，中文标签、行号和输出形状完整。权重来源与表示边界另核对 [PyTorch 官方教程](https://docs.pytorch.org/tutorials/beginner/nlp/word_embeddings_tutorial.html)。

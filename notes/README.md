@@ -25,6 +25,7 @@
 | T001 | [Transformer 全局结构](architecture/T001-transformer-overview.md) | 已掌握（理论） | 2026-10-12 | — |
 | T002-1 | [Token、token ID 与词表](foundations/T002-1-token-id-vocabulary.md) | 已掌握（理论） | 2026-10-13 | — |
 | T002-2 | [Tokenizer 的处理流程与 BPE 入门](foundations/T002-2-tokenizer-bpe.md) | 已掌握（理论） | 2026-10-13 | — |
+| T002-3 | [特殊 token、模型配套与文本解码](foundations/T002-3-special-tokens-decoding.md) | 已掌握（理论） | 2026-10-13 | — |
 
 新增条目使用：`编号｜标题与链接｜已掌握/已跳过｜归档日期｜跳过原因（如有）`。
 
