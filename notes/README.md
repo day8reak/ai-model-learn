@@ -26,6 +26,9 @@
 | T002-1 | [Token、token ID 与词表](foundations/T002-1-token-id-vocabulary.md) | 已掌握（理论） | 2026-10-13 | — |
 | T002-2 | [Tokenizer 的处理流程与 BPE 入门](foundations/T002-2-tokenizer-bpe.md) | 已掌握（理论） | 2026-10-13 | — |
 | T002-3 | [特殊 token、模型配套与文本解码](foundations/T002-3-special-tokens-decoding.md) | 已掌握（理论） | 2026-10-13 | — |
+| T002-4 | [Embedding 查表、权重与形状](foundations/T002-4-embedding-lookup.md) | 已掌握（理论） | 2026-10-13 | — |
+
+T002 系列的四节理论均已确认掌握，分别保留上述笔记；实际学习日期与反馈见[学习日志](../study-log/README.md)。
 
 新增条目使用：`编号｜标题与链接｜已掌握/已跳过｜归档日期｜跳过原因（如有）`。
 
