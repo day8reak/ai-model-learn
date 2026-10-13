@@ -17,4 +17,5 @@
 | T001 | [T001 — Transformer 全局结构](T001.md) |
 | T002-1 | [T002-1 — Token、token ID 与词表](T002-1.md) |
 | T002-2 | [T002-2 — Tokenizer 的处理流程与 BPE 入门](T002-2.md) |
+| T002-3 | [T002-3 — 特殊 token、模型配套与文本解码](T002-3.md) |
 <!-- courses:end -->

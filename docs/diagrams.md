@@ -41,3 +41,14 @@
 已用 Python 复算三轮加权计数，最高频对无并列；新课代码输出 `['ab', 'ac']` 和 `[3, 5]`。另用逐次选择最高优先级相邻对的独立实现核对：在字母表 `{a,b,c}`、长度 1–6 的全部 1092 个非空字符串上，结果与讲义代码一致；也核对了自测例。验证范围只覆盖本课简化规则，不作为真实 tokenizer 的兼容性或性能验证。
 
 两张图均用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染，并逐张检查文字、箭头和规则编号。规范化与预切分另对照[官方说明](https://huggingface.co/learn/llm-course/en/chapter6/4)，算法依据复核 [Sennrich 等，2016，§3.2](https://aclanthology.org/P16-1162.pdf)。
+
+## 2026-10-13：T002-3 特殊 token 与文本解码
+
+| 图号 | 核查依据与重点 | 简化边界 |
+| --- | --- | --- |
+| [T002-3](../lessons/T002-3.md) 图 1 | [Tokenizers 后处理](https://huggingface.co/docs/tokenizers/pipeline#post-processing)与 [Tokenizer API](https://huggingface.co/docs/transformers/main/en/main_classes/tokenizer)：普通片段编码完成后，按预设模板添加边界；ID 数量对应输入张量的位置数 | 原创字符级 BPE、固定 V=9、BOS=6、EOS=7、PAD=8；仅演示完整单片段，不代表实际聊天模板，省略神经网络 |
+| T002-3 图 2 | [文本解码流程](https://huggingface.co/docs/tokenizers/pipeline#decoding)与 API 的 `skip_special_tokens`：查回 token、按选项跳过特殊 token、按配套规则重建文字 | 本例用字符片段直接拼接，无字节还原或文本规范化；输入 ID 已存在，不运行 Transformer，不表示生成停止逻辑 |
+
+已执行讲义中的 Python 代码，得到 `<bos>ababac<eos>` 与 `ababac`。独立按合并优先级复算正文及第 1 题的 BPE 编码，核对加入边界后的 ID、S、V，以及填充后的张量位置数和输入掩码；解码跳过 PAD 后文字一致。验证范围为本课教学配置，不作为真实模型运行证据。
+
+两张图均使用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染，并逐张查看中文标签、数值、箭头与布局。正文另对照[聊天模板](https://huggingface.co/docs/transformers/main/en/chat_templating)和 [v4.45.2 生成配置](https://huggingface.co/docs/transformers/v4.45.2/en/main_classes/text_generation)，避免把文本解码与模型 Decode、停止判断混为一谈。
