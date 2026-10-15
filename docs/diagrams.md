@@ -62,3 +62,13 @@
 已执行讲义的 Python 列表代码，逐行核对 Markdown 权重表与代码数据，输出与手算一致。另以 one-hot 乘权重表的独立计算核对全部九个 ID、顺序与重复取行；复算正文和自测的输入、权重、输出形状，以及每条序列补一个 PAD 后的变化。只验证本课查表，不验证后续模型层或训练；未安装或运行 PyTorch，也未加载真实模型。
 
 图已用 Mermaid CLI 11.17.0 / Mermaid 11.17.2 在 Chrome 中渲染并查看，ID 与权重两条输入箭头含义清楚，中文标签、行号和输出形状完整。权重来源与表示边界另核对 [PyTorch 官方教程](https://docs.pytorch.org/tutorials/beginner/nlp/word_embeddings_tutorial.html)。
+
+## 2026-10-15：T003 线性投影与偏置广播
+
+| 图号 | 核查依据与重点 | 简化边界 |
+| --- | --- | --- |
+| [T003](../lessons/T003.md) 图 1 | [PyTorch 2.14 matmul](https://docs.pytorch.org/docs/2.14/generated/torch.matmul.html)、[广播规则](https://docs.pytorch.org/docs/2.14/notes/broadcasting.html)及 [Linear](https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html)：X 与 W 计算 Z，偏置按末轴对齐后加到每个输出位置 | 手工 B=1、S=2、H=3、D=2；W 按 `[H,D]` 展示，省略注意力、激活、位置处理与缓存 |
+
+已执行讲义的 Python 列表代码，输出为 `[[[11,1],[13,0]]]`。另按权重列独立计算点积，复算自测数值及形状，并检查偏置广播的有效/无效情况。范围为本课教学配置；未加载真实模型或执行 NPU 验证。
+
+图已用本地 Mermaid CLI 在 Chrome 中渲染并查看：X/W 两条输入、Z 到加法的连接、偏置广播箭头，以及 `[1,2,3] → [1,2,2]` 的形状均清晰完整。此核查补齐自动准备时未执行的图示预览，不改变正式自测题面。
