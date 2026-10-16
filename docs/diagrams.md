@@ -12,6 +12,14 @@
 
 外部图先核对作者、原始页面及许可，满足公开使用条件后才嵌入并按要求署名。许可不明确时链接原文，另画独立的教学解释。自动任务优先返回内嵌图，不引用不存在的本地资产。
 
+## 公式显示检查
+
+关键公式使用 GitHub 支持的 `math` 围栏代码块，多步运算分行，明确括号与上、下标分组，中文说明放在公式外；同时提供等价的 `text` 代码块。交互聊天默认用纯文本计算式。语法依据：[GitHub 数学表达式说明](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)。
+
+公式与 Mermaid 图使用不同的渲染组件，分别检查语法及显示。新增或修复公式后预览公式本身；只有实际查看线上页面才能记录线上显示通过，本地解析通过不能替代这一结论。
+
+2026-10-16 在 T004 的 GitHub 页面复现：Q/K/V 投影公式能显示，注意力公式报错 `The following macros are not allowed: operatorname`。因此函数名改用 `\mathrm{softmax}`，不再使用该页面拒绝的 `\operatorname`。本地公式解析器曾接受原写法，说明本地语法检查不足以覆盖线上渲染限制。
+
 ## 2026-10-12 内容核查
 
 | 讲义与图号 | 核查依据与重点 | 简化边界 |
